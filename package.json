@@ -1,0 +1,40 @@
+{
+  "name": "node-red-contrib-autoterm",
+  "version": "0.1.0",
+  "description": "Node-RED nodes for an Autoterm heater USB serial proxy",
+  "license": "GPL-2.0-or-later",
+  "author": "Capitaine-Adhoc",
+  "dependencies": {
+    "serialport": "^12.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "node-red": "^3.1.0",
+    "node-red-node-test-helper": "^0.3.0"
+  },
+  "scripts": {
+    "test": "mocha \"test/**/*_spec.js\""
+  },
+  "files": [
+    "lib",
+    "nodes",
+    "examples",
+    "firmware",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "node-red": {
+    "nodes": {
+      "autoterm-config": "nodes/autoterm-config.js",
+      "autoterm-in": "nodes/autoterm-in.js",
+      "autoterm-command": "nodes/autoterm-command.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Capitaine-Adhoc/node-red-contrib-autoterm"
+  }
+}

@@ -1,0 +1,92 @@
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+
+<script type="text/javascript">
+  RED.nodes.registerType("autoterm-config", {
+    category: "config",
+    defaults: {
+      name:       { value: "autoterm-proxy-usb" },
+      heaterType: { value: "2D", required: true },
+      port:       { value: "/dev/ttyUSB0", required: true },
+      baudRate:   { value: 115200, required: true, validate: RED.validators.number() },
+      retryDelay: { value: 2000, validate: RED.validators.number() },
+      maxRetries: { value: 3, validate: RED.validators.number() }
+    },
+    label: function () {
+      return this.name || this.port || "autoterm serial";
+    },
+  });
+</script>
+
+<script type="text/html" data-template-name="autoterm-config">
+  <style>
+    #dialog-form .form-row > label { width: 220px; }
+    #dialog-form .form-row > input,
+    #dialog-form .form-row > select { width: calc(100% - 230px); }
+  </style>
+
+  <div class="form-row">
+    <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-config-input-name" placeholder="autoterm-proxy-usb">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-heaterType"><i class="fa fa-fire"></i> Heater type</label>
+    <select id="node-config-input-heaterType">
+      <option value="2D">Autoterm 2D – 4.4 ml/pulse</option>
+      <option value="4D">Autoterm 4D – 6.8 ml/pulse</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-port"><i class="fa fa-plug"></i> Serial port</label>
+    <input type="text" id="node-config-input-port" placeholder="/dev/ttyUSB0">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-baudRate"><i class="fa fa-tachometer"></i> Baud rate</label>
+    <input type="number" id="node-config-input-baudRate">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-retryDelay"><i class="fa fa-clock-o"></i> Retry delay (ms)</label>
+    <input type="number" id="node-config-input-retryDelay">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-maxRetries"><i class="fa fa-repeat"></i> Retries on BUSY</label>
+    <input type="number" id="node-config-input-maxRetries">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="autoterm-config">
+  <p>
+    Shared serial connection to the Autoterm proxy. Example: port
+    <code>/dev/ttyUSB0</code> (Linux) or <code>COM3</code> (Windows),
+    baud rate <code>115200</code>.
+  </p>
+
+  <h3>Properties</h3>
+  <dl class="message-properties">
+    <dt>Name <span class="property-type">string</span></dt>
+    <dd>Label displayed for this configuration node.</dd>
+
+    <dt>Heater type <span class="property-type">2D | 4D</span></dt>
+    <dd>
+      Selects the heater model. It determines the fuel volume delivered
+      per pump pulse (2D: 4.4 ml, 4D: 6.8 ml).
+    </dd>
+
+    <dt>Serial port <span class="property-type">string</span></dt>
+    <dd>Path of the serial device connected to the proxy.</dd>
+
+    <dt>Baud rate <span class="property-type">number</span></dt>
+    <dd>Serial speed. Default: <code>115200</code>.</dd>
+
+    <dt>Retry delay <span class="property-type">number (ms)</span></dt>
+    <dd>
+      Delay before reconnecting to the serial port, or before resending
+      a frame after a BUSY response. Minimum: <code>250</code> ms.
+    </dd>
+
+    <dt>Retries on BUSY <span class="property-type">number</span></dt>
+    <dd>
+      Maximum number of times a write is retried when the proxy answers
+      <code>ERR BUSY</code>. Default: <code>3</code>.
+    </dd>
+  </dl>
+</script>

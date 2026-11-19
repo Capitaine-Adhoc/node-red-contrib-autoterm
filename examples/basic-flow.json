@@ -1,0 +1,8 @@
+[
+ {"id":"tab-autoterm","type":"tab","label":"AutoTerm example","disabled":false,"info":""},
+ {"id":"serial-config","type":"autoterm-config","name":"USB proxy","port":"/dev/ttyUSB0","baudRate":115200,"retryDelay":2000,"maxRetries":3},
+ {"id":"inject-status","type":"inject","z":"tab-autoterm","name":"Request status","props":[{"p":"payload"}],"payload":"{\"action\":\"status\"}","payloadType":"json","x":160,"y":100,"wires":[["send-command"]]},
+ {"id":"send-command","type":"autoterm-command","z":"tab-autoterm","name":"Send command","serial":"serial-config","x":390,"y":100,"wires":[[]]},
+ {"id":"receive-heater","type":"autoterm-in","z":"tab-autoterm","name":"Decoded proxy events","serial":"serial-config","source":"both","commands":"","x":190,"y":220,"wires":[["debug-output"]]},
+ {"id":"debug-output","type":"debug","z":"tab-autoterm","name":"AutoTerm messages","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":430,"y":220,"wires":[]}
+]

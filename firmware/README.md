@@ -1,0 +1,4 @@
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+# Arduino Mega proxy interface
+
+The supplied task did not include the Arduino sketch itself, so this folder documents the required USB serial contract instead of fabricating firmware. Expected USB baud is 115200. Emit LF-terminated status lines: `C: <space-separated hex> [CRC OK|CRC KO]`, `H: ...`, `PROXY READY`, `INJ: ...`, `ERR HEX|LENGTH|CRC|BUSY|OVERFLOW`, and `[BROKEN]` frame notifications. Accept an ASCII hex frame followed by LF for injection. Frames are `AA device length type command payload CRC-hi CRC-lo`; CRC16-Modbus (init FFFF, polynomial A001) is computed over all but the final two bytes and serialized big-endian. Implement queue/busy handling and bounds checks on the MCU, preserve the heater/controller protocol, and independently verify CRC and safe failure behavior before use. This README is not a firmware implementation.

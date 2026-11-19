@@ -1,0 +1,85 @@
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+
+<script type="text/javascript">
+  RED.nodes.registerType("autoterm-in", {
+    category: "autoterm",
+    color: "#d8e6c3",
+    defaults: {
+      name: { value: "" },
+      serial: { type: "autoterm-config", required: true },
+      source: { value: "both" },
+      commands: { value: "" },
+      requests: { value: false },
+    },
+    inputs: 0,
+    outputs: 1,
+    icon: "font-awesome/fa-fire",
+    label: function () {
+      return this.name || "autoterm-in";
+    },
+  });
+</script>
+
+<script type="text/html" data-template-name="autoterm-in">
+  <div class="form-row">
+    <label for="node-input-name">Name</label>
+    <input type="text" id="node-input-name" placeholder="autoterm-in">
+  </div>
+  <div class="form-row">
+    <label for="node-input-serial">Serial connection</label>
+    <input type="text" id="node-input-serial">
+  </div>
+  <div class="form-row">
+    <label for="node-input-source">Source</label>
+    <select id="node-input-source">
+      <option value="both">C and H</option>
+      <option value="C">Controller (C)</option>
+      <option value="H">Heater (H)</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-commands">Commands (optional)</label>
+    <input type="text" id="node-input-commands" placeholder="0x0F, 0x02">
+  </div>
+  <div class="form-row">
+    <label for="node-input-requests">Requests</label>
+    <input type="checkbox" id="node-input-requests" style="width:auto;">
+    <span>Show panel read requests</span>
+  </div>
+</script>
+
+<script type="text/html" data-help-name="autoterm-in">
+  <p>
+    Receives valid frames from the proxy and decodes them.
+  </p>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">object</span></dt>
+    <dd>Decoded values.</dd>
+    <dt>frame <span class="property-type">buffer</span></dt>
+    <dd>Raw frame bytes.</dd>
+    <dt>source <span class="property-type">string</span></dt>
+    <dd><code>C</code> (controller) or <code>H</code> (heater).</dd>
+    <dt class="optional">state <span class="property-type">string</span></dt>
+    <dd>Heater state (status frames).</dd>
+    <dt class="optional">conso_l_h <span class="property-type">number</span></dt>
+    <dd>Fuel consumption in litres per hour (status frames).</dd>
+    <dt class="optional">error <span class="property-type">string</span></dt>
+    <dd>Fault description, if any.</dd>
+  </dl>
+  <p>
+    Other message properties: <code>msg.cmd</code> (command ID),
+    <code>msg.type</code>, <code>msg.device</code> and <code>msg.raw</code>
+    (raw proxy line).
+  </p>
+  <h3>Topics</h3>
+  <ul>
+    <li><code>Autoterm/<cmd></code>: decoded frame (cmd in hex, e.g. <code>Autoterm/0f</code>)</li>
+    <li><code>Autoterm/rapport</code>: full EEPROM report (assembled from the 4 pages)</li>
+    <li><code>Autoterm/diag</code>: diagnostic frame</li>
+    <li><code>Autoterm/proxy</code>: proxy errors and events, forwarded as-is</li>
+  </ul>
+  <p>
+    Unknown data stays flagged as such.
+  </p>
+</script>

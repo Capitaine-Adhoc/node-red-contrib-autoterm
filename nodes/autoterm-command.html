@@ -1,0 +1,56 @@
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+
+<script type="text/javascript">
+  /* SPDX-License-Identifier: GPL-2.0-or-later */
+  RED.nodes.registerType('autoterm-command', {
+    category: 'autoterm',
+    color: '#d8e6c3',
+    defaults: {
+      name: { value: '' },
+      serial: { type: 'autoterm-config', required: true },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'font-awesome/fa-fire',
+    label: function () {
+      return this.name || 'autoterm-command';
+    },
+  });
+</script>
+
+<script type="text/html" data-template-name="autoterm-command">
+  <div class="form-row">
+    <label for="node-input-name">Name</label>
+    <input id="node-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-serial">Serial</label>
+    <input id="node-input-serial">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="autoterm-command">
+  <p>
+    Sends a command to the heater through the Autoterm proxy.
+  </p>
+  <h3>Input</h3>
+  <p><code>msg.payload</code> accepts:</p>
+  <ul>
+    <li>a command object, e.g. <code>{"action": "status"}</code></li>
+    <li>a JSON string of such an object</li>
+    <li>a raw hex frame, e.g. <code>AA 03 00 00 03 5D 7C</code> (string or Buffer)</li>
+  </ul>
+  <h3>Output</h3>
+  <p>
+    The input message, sent once all frames are written, with
+    <code>msg.frames</code> holding the frames actually sent. The output may be
+    left unconnected.
+  </p>
+  <p>
+    Supported actions: init, stop, status, getsettings, version, diag, temp,
+    fan, start, set, rapport. Rapport pages are sent 150 ms apart.
+  </p>
+  <p>
+    <strong>Use with care:</strong> commands can operate a combustion heater.
+  </p>
+</script>
