@@ -100,7 +100,7 @@ flowchart LR
 
 ---
 
-## 🎛️ Commands
+## 🧩 Commands
 
 | Action | Parameters | Description |
 |---|---|---|
@@ -114,12 +114,31 @@ flowchart LR
 | `start` / `set` | `mode`, `setpoint`, `fan`, `power` | Start or update |
 | `report` | – | Read the heater EEPROM pages |
 
-> [!NOTE]
-> Values use the original generator's clamping defaults. The `temp` action (`0x11`) was commented out in the original generator, so treat it as **unverified**.
+**Examples of commands :**
+
+```sh
+{"action":"start","mode":2,"thermostat":20,"vent":2,"power":5}
+{"action":"set","mode":2,"thermostat":20,"vent":2,"power":5}
+
+{"action":"start","mode":4,"thermostat":16,"vent":1,"power":3}
+{"action":"set","mode":4,"thermostat":16,"vent":1,"power":3}
+
+{"action":"fan","powerlevel":1}
+{"action":"fan","powerlevel":9}
+
+{"action":"diag","enable":true}
+{"action":"diag","enable":false}
+
+{"action":"report"}
+{"action":"version"}
+
+{"action":"stop"}
+
+```
 
 ---
 
-## 📡 Protocol
+## 🔍 Protocol
 
 | Item | Value |
 |---|---|
@@ -133,6 +152,13 @@ Frame layout:
 ```
 AA | device | payload_len | type | cmd_id | payload... | CRC_hi | CRC_lo
 ```
+
+**External source:**
+
+- https://grimoire314.wordpress.com/2019/03/21/autoterm-planar-diesel-heater-controller-reverse-engineering-part-2/
+- https://schlussdienst.net/html/planar-2d-protocol.md
+- https://github.com/tim0816/autoterm_esphome/tree/main
+- https://github.com/prclm/AutotermHeaterController
 
 ---
 
