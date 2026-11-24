@@ -1,5 +1,5 @@
 <!-- SPDX-License-Identifier: GPL-2.0-or-later -->
-# node-red-contrib-autoterm [![npm](https://img.shields.io/npm/v/node-red-contrib-autoterm?color=cb3837&logo=npm)](https://www.npmjs.com/package/node-red-contrib-autoterm) [![CI](https://img.shields.io/github/actions/workflow/status/Capitaine-Adhoc/node-red-contrib-autoterm/ci.yml?branch=main&label=CI)](https://github.com/Capitaine-Adhoc/node-red-contrib-autoterm/actions) [![License](https://img.shields.io/badge/license-GPL--2.0--or--later-blue)](LICENSE)
+# node-red-contrib-autoterm [![npm](https://img.shields.io/npm/v/node-red-contrib-autoterm?color=cb3837&logo=npm)](https://www.npmjs.com/package/node-red-contrib-autoterm) [![CI](https://img.shields.io/github/actions/workflow/status/Capitaine-Adhoc/node-red-contrib-autoterm/ci.yml?branch=main&label=CI)](https://github.com/Capitaine-Adhoc/node-red-contrib-autoterm/actions) [![License](https://img.shields.io/badge/license-GPL--2.0--or--later-blue)](LICENSE) [![Venus OS](https://img.shields.io/badge/Victron-Venus%20OS-005596?style=flat-square)](https://www.victronenergy.com/live/venus-os:large)
 
 <p align="center">
   <img src=".github/assets/banner.png" alt="node-red-contrib-autoterm">
